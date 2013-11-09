@@ -30,7 +30,8 @@ namespace WmlValidatorConsole
                     XmlReaderSettings settings = new XmlReaderSettings();
                     settings.ProhibitDtd = false;
                     settings.ValidationType = ValidationType.None;
-                    settings.XmlResolver = new XmlLocalResolver("wml_1.1.dtd");
+                    var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wml_1.1.dtd");
+                    settings.XmlResolver = new XmlLocalResolver(path);
                     using (var reader = XmlReader.Create(str, settings))
                     {
                         while (reader.Read())
