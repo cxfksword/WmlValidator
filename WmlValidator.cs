@@ -23,8 +23,6 @@ namespace WmlValidatorConsole
         {
             var preErrorElement = "";
             var errorMessage = "";
-            // 替换dtd为本地文件，要不需要从网上下载验证，导致执行速度很慢
-            wmlstr = wmlstr.Replace("http://www.wapforum.org/DTD/wml_1.1.xml", "wml_1.1.dtd");
             try
             {
                 using (StringReader str = new StringReader(wmlstr))
@@ -32,6 +30,7 @@ namespace WmlValidatorConsole
                     XmlReaderSettings settings = new XmlReaderSettings();
                     settings.ProhibitDtd = false;
                     settings.ValidationType = ValidationType.None;
+                    settings.XmlResolver = new XmlLocalResolver("wml_1.1.dtd");
                     using (var reader = XmlReader.Create(str, settings))
                     {
                         while (reader.Read())
